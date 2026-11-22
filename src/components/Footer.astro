@@ -1,0 +1,57 @@
+---
+import Mark from './Mark.astro';
+import { SITE } from '../../site.config.mjs';
+const year = new Date().getFullYear();
+---
+<footer class="site-footer">
+  <div class="container cols">
+    <div class="brand">
+      <a href="/" class="logo" aria-label="Breakglass Labs home">
+        <Mark size={24} small />
+        <span class="word">breakglass<span class="slash">/labs</span></span>
+      </a>
+      <p class="muted small">Offensive security for AI agents, LLM applications and MCP servers.</p>
+      <p class="muted small">{SITE.legalName} · {SITE.location}</p>
+    </div>
+    <nav aria-label="Footer" class="links">
+      <div>
+        <p class="label label-muted">Work</p>
+        <a href="/services/">Services</a>
+        <a href="/approach/">Approach</a>
+        <a href="/pilots/">Pilots</a>
+      </div>
+      <div>
+        <p class="label label-muted">Company</p>
+        <a href="/about/">About</a>
+        <a href="/research/">Research</a>
+        <a href="/contact/">Contact</a>
+        {SITE.linkedin && <a href={SITE.linkedin} rel="me noopener">LinkedIn</a>}
+      </div>
+      <div>
+        <p class="label label-muted">Trust</p>
+        <a href="/security/">Security and disclosure</a>
+        <a href="/privacy/">Privacy</a>
+        <a href="/rss.xml">RSS</a>
+      </div>
+    </nav>
+  </div>
+  <div class="container base">
+    <p class="muted small">© {year} {SITE.legalName}</p>
+    <p class="muted small mono">break it before they do</p>
+  </div>
+</footer>
+
+<style>
+  .site-footer { border-top: 1px solid var(--hairline); padding: 48px 0 32px; }
+  .cols { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 32px 48px; }
+  .brand { display: flex; flex-direction: column; gap: 10px; max-width: 340px; }
+  .logo { display: inline-flex; align-items: center; gap: 10px; color: var(--accent); text-decoration: none; }
+  .word { font-family: var(--mono); font-weight: 700; font-size: 16px; color: var(--text); }
+  .slash { color: var(--accent); }
+  .links { display: flex; flex-wrap: wrap; gap: 32px 56px; }
+  .links div { display: flex; flex-direction: column; gap: 2px; }
+  .links .label { margin-bottom: 6px; }
+  .links a { color: var(--text-muted); text-decoration: none; padding: 6px 0; font-size: 15px; }
+  .links a:hover { color: var(--accent); }
+  .base { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--hairline); }
+</style>

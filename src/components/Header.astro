@@ -1,0 +1,63 @@
+---
+import Mark from './Mark.astro';
+import { bookingHref } from '../../site.config.mjs';
+
+const links: [string, string][] = [
+  ['Services', '/services/'],
+  ['Approach', '/approach/'],
+  ['Research', '/research/'],
+  ['Pilots', '/pilots/'],
+  ['About', '/about/'],
+];
+const path = Astro.url.pathname;
+const current = (href: string) => (path === href || path.startsWith(href) ? 'page' : undefined);
+---
+<header class="site-header">
+  <div class="container bar">
+    <a href="/" class="logo" aria-label="Breakglass Labs home">
+      <Mark size={30} />
+      <span class="word">breakglass<span class="slash">/labs</span></span>
+    </a>
+    <nav class="nav-desktop" aria-label="Main">
+      {links.map(([label, href]) => <a href={href} aria-current={current(href)}>{label}</a>)}
+      <a class="btn btn-primary cta" href={bookingHref}>Book a scoping call</a>
+    </nav>
+    <details class="nav-mobile">
+      <summary>Menu</summary>
+      <nav aria-label="Main">
+        {links.map(([label, href]) => <a href={href} aria-current={current(href)}>{label}</a>)}
+        <a href="/contact/">Contact</a>
+        <a class="btn btn-primary" href={bookingHref}>Book a scoping call</a>
+      </nav>
+    </details>
+  </div>
+</header>
+
+<style>
+  .site-header { border-bottom: 1px solid var(--hairline); position: relative; z-index: 10; background: var(--bg); }
+  .bar { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 68px; }
+  .logo { display: inline-flex; align-items: center; gap: 10px; color: var(--accent); text-decoration: none; }
+  .word { font-family: var(--mono); font-weight: 700; font-size: 18px; color: var(--text); }
+  .slash { color: var(--accent); }
+  .nav-desktop { display: flex; align-items: center; gap: 4px 6px; }
+  .nav-desktop a:not(.btn) { padding: 10px 10px; font-size: 15px; color: var(--text); text-decoration: none; }
+  .nav-desktop a:not(.btn):hover, .nav-desktop a[aria-current='page'] { color: var(--accent); }
+  .cta { min-height: 40px; padding: 0 16px; font-size: 15px; margin-left: 8px; }
+  .nav-mobile { display: none; }
+  .nav-mobile summary {
+    list-style: none; cursor: pointer; font-family: var(--mono); font-size: 14px; letter-spacing: 0.06em; text-transform: uppercase;
+    color: var(--accent); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 10px 14px; min-height: 44px; display: flex; align-items: center;
+  }
+  .nav-mobile summary::-webkit-details-marker { display: none; }
+  .nav-mobile nav {
+    position: absolute; left: 0; right: 0; top: 100%; background: var(--surface); border-bottom: 1px solid var(--border);
+    display: flex; flex-direction: column; padding: 8px 24px 20px;
+  }
+  .nav-mobile nav a:not(.btn) { padding: 14px 0; color: var(--text); text-decoration: none; border-bottom: 1px solid var(--hairline); font-size: 17px; }
+  .nav-mobile nav a[aria-current='page'] { color: var(--accent); }
+  .nav-mobile nav .btn { margin-top: 16px; }
+  @media (max-width: 900px) {
+    .nav-desktop { display: none; }
+    .nav-mobile { display: block; }
+  }
+</style>

@@ -1,0 +1,21 @@
+---
+import { SITE, bookingHref } from '../../site.config.mjs';
+interface Props { title?: string; text?: string; primary?: string; primaryHref?: string; showEmail?: boolean }
+const {
+  title = 'Shipping an agent or an MCP server this quarter?',
+  text = 'Tell us what you are building. We reply with a scoped, fixed-fee proposal, usually within three business days.',
+  primary = 'Book a scoping call',
+  primaryHref = bookingHref,
+  showEmail = true,
+} = Astro.props;
+---
+<section class="cta-band grid-bg" aria-labelledby="cta-title">
+  <div class="container">
+    <h2 id="cta-title" class="h2">{title}</h2>
+    <p class="lead">{text}</p>
+    <div class="btn-row">
+      <a class="btn btn-primary" href={primaryHref}>{primary}</a>
+      {showEmail && <a class="btn btn-secondary mono" href={`mailto:${SITE.email}`}>{SITE.email}</a>}
+    </div>
+  </div>
+</section>

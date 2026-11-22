@@ -1,0 +1,81 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import CheckIcon from '../../components/CheckIcon.astro';
+import { services, deliverables, type Service } from '../../data/services';
+import { bookingHref } from '../../../site.config.mjs';
+
+export function getStaticPaths() {
+  return services.map((service) => ({ params: { slug: service.slug }, props: { service } }));
+}
+const { service } = Astro.props as { service: Service };
+const others = services.filter((s) => s.slug !== service.slug);
+const what = service.deliverables ?? deliverables;
+---
+<BaseLayout title={service.name} description={service.short}>
+  <section class="page-hero grid-bg">
+    <div class="container">
+      <p class="crumbs"><a href="/services/">Services</a> / {service.name}</p>
+      <h1 class="h1">{service.name}</h1>
+      <p class="lead">{service.short}</p>
+      <dl class="facts hero-facts">
+        <dt>Best for</dt><dd>{service.bestFor}</dd>
+        <dt>{service.lengthLabel}</dt><dd>{service.length}</dd>
+        <dt>Price</dt><dd>Fixed fee, in the proposal</dd>
+      </dl>
+      <div class="btn-row"><a class="btn btn-primary" href={bookingHref}>Book a scoping call</a></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container split top">
+      <div class="main stack">
+        {service.intro.map((p) => <p class="lead text">{p}</p>)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt" aria-labelledby="tests-title">
+    <div class="container stack-lg">
+      <div class="section-head">
+        <p class="label">Coverage</p>
+        <h2 id="tests-title" class="h2">What we test</h2>
+      </div>
+      <div class="cards">
+        {service.tests.map(([name, text]) => (
+          <div class="card card-raised"><h3 class="h3">{name}</h3><p>{text}</p></div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="get-title">
+    <div class="container split top">
+      <div class="main stack">
+        <p class="label">Deliverables</p>
+        <h2 id="get-title" class="h2">What you get</h2>
+        <ul class="checklist">{what.map((d) => <li><CheckIcon /><span>{d}</span></li>)}</ul>
+        <a class="text-link" href="/approach/">How an engagement runs</a>
+      </div>
+      <aside class="side">
+        <div class="card">
+          <p class="label label-muted">Other services</p>
+          <ul class="others">
+            {others.map((s) => <li><a href={`/services/${s.slug}/`}>{s.name}</a></li>)}
+          </ul>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <CtaBand />
+</BaseLayout>
+
+<style>
+  .hero-facts { border: 0; padding: 0; margin: 4px 0 8px; max-width: 520px; }
+  .top { align-items: flex-start; }
+  .text { color: var(--text); }
+  .others { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+  .others a { display: block; padding: 10px 0; border-bottom: 1px solid var(--border); text-decoration: none; }
+  .others li:last-child a { border-bottom: 0; }
+</style>

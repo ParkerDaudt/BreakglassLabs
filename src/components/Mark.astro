@@ -1,0 +1,25 @@
+---
+// The Breakglass mark: a pane with the fracture of one impact. "small" drops the ring
+// and three cracks for sizes under 32px. Color follows the surrounding text color.
+interface Props { size?: number; small?: boolean; detailed?: boolean; class?: string }
+const { size = 30, small = false, detailed = false, class: cls } = Astro.props;
+---
+{small ? (
+  <svg viewBox="0 0 64 64" width={size} height={size} aria-hidden="true" class={cls}>
+    <rect x="4" y="4" width="56" height="56" rx="4" fill="none" stroke="currentColor" stroke-width="5" />
+    <path d="M40 24 L4 16 M40 24 L14 60 M40 24 L60 40" fill="none" stroke="currentColor" stroke-width="4.5" stroke-linecap="round" />
+  </svg>
+) : detailed ? (
+  <svg viewBox="0 0 64 64" width={size} height={size} aria-hidden="true" class={cls}>
+    <rect x="4" y="4" width="56" height="56" rx="2" fill="none" stroke="#2A3340" stroke-width="0.8" />
+    <path d="M40 24 L4 16 M40 24 L14 60 M40 24 L46 60 M40 24 L60 40 M40 24 L60 6 M40 24 L28 4" fill="none" stroke="currentColor" stroke-width="0.6" stroke-linecap="round" />
+    <path d="M51 14.1 L33.4 13 L20.2 19.6 L25.7 43.8 L43.3 43.8 L51 32.8" fill="none" stroke="currentColor" stroke-width="0.6" stroke-linejoin="round" />
+    <path d="M36 21 L43 20 L45 27 L39 30 L34 27 Z" fill="currentColor" />
+  </svg>
+) : (
+  <svg viewBox="0 0 64 64" width={size} height={size} aria-hidden="true" class={cls}>
+    <rect x="4" y="4" width="56" height="56" rx="4" fill="none" stroke="currentColor" stroke-width="4" />
+    <path d="M40 24 L4 16 M40 24 L14 60 M40 24 L46 60 M40 24 L60 40 M40 24 L28 4" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" />
+    <path d="M36 21 L43 20 L45 27 L39 30 L34 27 Z" fill="currentColor" />
+  </svg>
+)}
