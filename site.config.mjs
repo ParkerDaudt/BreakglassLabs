@@ -17,7 +17,7 @@ export const SITE = {
   bookingUrl: '',
 
   // Company page URL, or leave empty to hide the LinkedIn link.
-  linkedin: '',
+  linkedin: 'https://www.linkedin.com/company/breakglasslabs/',
 
   // Path to a headshot in /public, for example '/images/parker-daudt.jpg'.
   // Leave empty to show the brand mark instead.
