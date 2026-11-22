@@ -1,0 +1,66 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import CtaBand from '../components/CtaBand.astro';
+import Mark from '../components/Mark.astro';
+import { SITE } from '../../site.config.mjs';
+
+const principles = [
+  ['Show the chain, not the scare', 'We say what an attacker could do, step by step, and how we proved it. We never sell with fear.'],
+  ['Specific beats impressive', 'We name the protocol, the tool and the permission, so your engineers can act on it.'],
+  ['Honest about limits', 'We never call a system secure. We say what we tested, when, and what we found.'],
+  ['Your data stays yours', 'We keep evidence to the minimum, never sell vulnerabilities, and never publish anything that identifies a client without written consent.'],
+];
+---
+<BaseLayout title="About" description="Breakglass Labs is an offensive security consultancy for AI agents, LLM applications and MCP servers, founded by Parker Daudt, CISSP.">
+  <section class="page-hero grid-bg">
+    <div class="container">
+      <p class="label">About</p>
+      <h1 class="h1">A security lab for the AI era</h1>
+      <p class="lead">Breakglass Labs exists because connecting models to real data and real tools created attack paths that traditional testing was not built to find. We test those paths the way attackers would, and leave teams a way to keep them closed.</p>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="founder-title">
+    <div class="container founder">
+      <div class="headshot">
+        {SITE.headshot ? <img src={SITE.headshot} alt="Parker Daudt" width="560" height="700" /> : <Mark size={120} />}
+      </div>
+      <div class="stack bio">
+        <p class="label">Who you will work with</p>
+        <h2 id="founder-title" class="h2">Parker Daudt</h2>
+        <p class="mono small muted">Founder and Principal Consultant · CISSP</p>
+        <p>Parker holds an MSc in Cyber Security from the National College of Ireland and a BS in Physics from The College of Idaho. He has tested web applications at KPMG and held security roles at NetSPI, Nike and EY.</p>
+        <p>He founded and leads the Information Security Collective, a nonprofit of about 1,000 members focused on access to security careers. He builds MCP servers and agent tooling himself, which shapes how Breakglass tests them.</p>
+        <p class="muted">At Breakglass, you work directly with the person doing the testing.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt" aria-labelledby="principles-title">
+    <div class="container stack-lg">
+      <div class="section-head">
+        <p class="label">How we work</p>
+        <h2 id="principles-title" class="h2">Four principles</h2>
+      </div>
+      <div class="cards">
+        {principles.map(([name, text]) => <div class="card card-raised"><h3 class="h3">{name}</h3><p>{text}</p></div>)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container stack narrow">
+      <p class="label">Company</p>
+      <p class="lead">{SITE.legalName} is based in the {SITE.location}. We publish our <a href="/security/">security and disclosure policy</a> and our <a href="/privacy/">privacy notice</a>.</p>
+    </div>
+  </section>
+
+  <CtaBand />
+</BaseLayout>
+
+<style>
+  .founder { display: flex; flex-wrap: wrap; gap: 48px; align-items: flex-start; }
+  .founder .headshot { flex: 0 1 280px; color: var(--accent); }
+  .bio { flex: 999 1 420px; min-width: 0; max-width: 680px; }
+  .bio p { font-size: 17px; }
+</style>

@@ -1,0 +1,65 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import { services } from '../../data/services';
+import { bookingHref } from '../../../site.config.mjs';
+---
+<BaseLayout title="Services" description="Five fixed-fee services for AI agents, LLM applications and MCP servers, from a single MCP server assessment to an ongoing retainer.">
+  <section class="page-hero grid-bg">
+    <div class="container">
+      <p class="label">Services</p>
+      <h1 class="h1">Fixed scope, fixed fee, agreed before testing starts</h1>
+      <p class="lead">Each service tests a different shape of AI system. Not sure which fits? Start with a scoping call; the proposal that follows names the scope, the dates and the price.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container list">
+      {services.map((s) => (
+        <article class="row">
+          <div class="stack">
+            <h2 class="h3 name"><a href={`/services/${s.slug}/`}>{s.name}</a></h2>
+            <p class="muted">{s.short}</p>
+          </div>
+          <dl class="facts side-facts">
+            <dt>Best for</dt><dd>{s.bestFor}</dd>
+            <dt>{s.lengthLabel}</dt><dd>{s.length}</dd>
+          </dl>
+          <a class="text-link more" href={`/services/${s.slug}/`}>Details</a>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="container stack narrow">
+      <p class="label">Every assessment</p>
+      <h2 class="h2">The same five steps and the same deliverables</h2>
+      <p class="lead">A threat model, automated baseline, hands-on exploitation, attack chains and regression tests, delivered as a report, a readout, one retest, a CI test suite and an attestation letter.</p>
+      <div class="btn-row">
+        <a class="btn btn-secondary" href="/approach/">How we test</a>
+        <a class="btn btn-primary" href={bookingHref}>Book a scoping call</a>
+      </div>
+    </div>
+  </section>
+
+  <CtaBand />
+</BaseLayout>
+
+<style>
+  .list { display: flex; flex-direction: column; }
+  .row {
+    display: grid; grid-template-columns: minmax(0, 1fr) 300px auto; gap: 16px 40px; align-items: start;
+    padding: 28px 0; border-bottom: 1px solid var(--hairline);
+  }
+  .row:first-child { border-top: 1px solid var(--hairline); }
+  .name { font-size: 22px; }
+  .name a { color: var(--text); text-decoration: none; }
+  .name a:hover { color: var(--accent); }
+  .side-facts { margin: 0; padding: 0; border: 0; }
+  .more { align-self: center; }
+  @media (max-width: 860px) {
+    .row { grid-template-columns: 1fr; }
+    .more { align-self: start; }
+  }
+</style>

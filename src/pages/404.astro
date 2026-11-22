@@ -1,0 +1,21 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+<BaseLayout title="Page not found" noindex>
+  <section class="grid-bg nf">
+    <div class="container stack">
+      <p class="label">404</p>
+      <h1 class="display">nothing behind this glass</h1>
+      <p class="lead">The page you asked for does not exist, or it moved.</p>
+      <div class="btn-row">
+        <a class="btn btn-primary" href="/">Go to the home page</a>
+        <a class="btn btn-secondary" href="/services/">See our services</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .nf { min-height: 60vh; display: flex; align-items: center; border-bottom: 1px solid var(--hairline); }
+  .nf .container { padding-top: 80px; padding-bottom: 80px; }
+</style>

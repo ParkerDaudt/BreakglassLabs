@@ -1,0 +1,114 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import CtaBand from '../components/CtaBand.astro';
+import CheckIcon from '../components/CheckIcon.astro';
+import { deliverables } from '../data/services';
+
+const steps = [
+  ['Threat-model', 'We map the system: its models, tools, data, users and trust boundaries, and every place untrusted text can reach the model. This decides where testing time goes.'],
+  ['Baseline', 'Automated probes cover known weaknesses quickly, so hands-on time goes to the attacks that need a person.'],
+  ['Exploit', 'A tester works the system by hand. Agent-assisted tooling speeds up the work, and it runs only with a tester approving each step.'],
+  ['Chain', 'We connect findings into what an attacker could really do. A medium and a low can add up to a critical path, and the chain shows you what to fix first.'],
+  ['Lock in', 'Every confirmed finding becomes a regression test you keep and run in CI.'],
+];
+const engagement = [
+  ['Scoping call', 'You tell us what you are building, where it runs and what worries you.'],
+  ['Proposal', 'A fixed-fee proposal with scope, dates and deliverables, usually within three business days.'],
+  ['Paperwork', 'A mutual NDA, master services agreement, statement of work, rules of engagement and a signed letter of authorization. Data protection or HIPAA terms are added when your data calls for them.'],
+  ['Testing', 'Testing runs inside the agreed targets, windows and spending limits, with a named contact on both sides.'],
+  ['Report and readout', 'You get the report and evidence, then walk through the findings with the tester.'],
+  ['Retest and attestation', 'Once you fix the findings, we retest and issue the attestation letter and the regression suite.'],
+];
+const rules = [
+  'Testing runs from isolated Breakglass infrastructure, from source addresses you can allowlist',
+  'Only targets, windows and accounts named in the signed Rules of Engagement',
+  'Spending limits on model and API usage, agreed in advance',
+  'Anything we plant (documents, memories, test connections) is listed and removed before closeout',
+  'Evidence is kept to the minimum that proves a finding, and handled under a written retention policy',
+];
+const frameworks = [
+  ['OWASP Top 10 for LLM Applications', 'Model and application risks such as prompt injection and excessive agency'],
+  ['OWASP Top 10 for Agentic Applications', 'Agent risks such as goal hijacking, tool misuse and memory poisoning'],
+  ['OWASP MCP Top 10', 'MCP risks such as tool poisoning and token mismanagement (currently in beta)'],
+  ['MITRE ATLAS', 'Adversary techniques against AI systems'],
+  ['CWE', 'The underlying software weakness, where one applies'],
+];
+---
+<BaseLayout title="Approach" description="How Breakglass Labs tests AI agents, LLM applications and MCP servers: five steps, signed rules of engagement, attack chains and a regression suite you keep.">
+  <section class="page-hero grid-bg">
+    <div class="container">
+      <p class="label">Approach</p>
+      <h1 class="h1">Tester-led, chained, and locked in with tests</h1>
+      <p class="lead">Scanners find known patterns. We look for what an attacker could actually do with your system, prove it, and leave you a way to check it stays fixed.</p>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="steps-title">
+    <div class="container stack-lg">
+      <div class="section-head">
+        <p class="label">Method</p>
+        <h2 id="steps-title" class="h2">Five steps, every engagement</h2>
+      </div>
+      <ol class="steps">
+        {steps.map(([name, text], i) => (
+          <li><span class="num">{String(i + 1).padStart(2, '0')}</span><h3 class="h3">{name}</h3><p>{text}</p></li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <section id="deliverables" class="section section-alt" aria-labelledby="deliv-title">
+    <div class="container split top">
+      <div class="main stack">
+        <p class="label">Deliverables</p>
+        <h2 id="deliv-title" class="h2">What you get</h2>
+        <ul class="checklist">{deliverables.map((d) => <li><CheckIcon /><span>{d}</span></li>)}</ul>
+      </div>
+      <div class="side stack">
+        <div class="card card-raised">
+          <h3 class="h3">How we score</h3>
+          <p>Every finding gets a CVSS 4.0 score, plus a plain account of what the agent could do with it. Because AI output varies between runs, each finding also records the model and version tested and how often the attack worked, such as 7 of 10 attempts.</p>
+        </div>
+        <div class="card card-raised">
+          <h3 class="h3">Sample report</h3>
+          <p>A full sample report, from testing our own deliberately vulnerable lab, is coming in early 2027. Until then, we are happy to walk you through the report structure on a scoping call.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="eng-title">
+    <div class="container split top">
+      <div class="main stack">
+        <p class="label">Engagement</p>
+        <h2 id="eng-title" class="h2">From first call to attestation</h2>
+        <ol class="timeline">
+          {engagement.map(([name, text]) => <li><h3>{name}</h3><p>{text}</p></li>)}
+        </ol>
+      </div>
+      <div class="side stack">
+        <p class="label">Rules we work by</p>
+        <ul class="checklist">{rules.map((r) => <li><CheckIcon /><span>{r}</span></li>)}</ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt" aria-labelledby="fw-title">
+    <div class="container stack-lg">
+      <div class="section-head">
+        <p class="label">Frameworks</p>
+        <h2 id="fw-title" class="h2">Every finding is mapped</h2>
+        <p class="lead">So your team, your auditors and your customers can place each finding in a list they already use.</p>
+      </div>
+      <div class="cards">
+        {frameworks.map(([name, text]) => <div class="card card-raised"><h3 class="h3">{name}</h3><p>{text}</p></div>)}
+      </div>
+    </div>
+  </section>
+
+  <CtaBand />
+</BaseLayout>
+
+<style>
+  .top { align-items: flex-start; }
+</style>

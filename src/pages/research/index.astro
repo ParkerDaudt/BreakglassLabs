@@ -1,0 +1,40 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('research', ({ data }) => !data.draft)).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+const fmt = (d: Date) => d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' });
+---
+<BaseLayout title="Research" description="Breakglass Labs research on attacking and defending AI agents, LLM applications and MCP servers.">
+  <section class="page-hero grid-bg">
+    <div class="container">
+      <p class="label">From the lab</p>
+      <h1 class="h1">Research</h1>
+      <p class="lead">How attacks on agents, LLM apps and MCP servers work, and the checks you can run on your own systems. Subscribe with <a href="/rss.xml">RSS</a>.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <ul class="post-list">
+        {posts.map((p) => (
+          <li>
+            <article class="card post">
+              <p class="tag">{fmt(p.data.date)}{p.data.tags.length ? ` · ${p.data.tags.join(' · ')}` : ''}</p>
+              <h2 class="h3 title"><a href={`/research/${p.id}/`}>{p.data.title}</a></h2>
+              <p>{p.data.description}</p>
+              <a class="text-link" href={`/research/${p.id}/`}>Read the write-up</a>
+            </article>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <CtaBand />
+</BaseLayout>
+
+<style>
+  .post .title { font-size: 24px; }
+</style>

@@ -1,0 +1,35 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import { getCollection, render, type CollectionEntry } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('research', ({ data }) => !data.draft);
+  return posts.map((post) => ({ params: { slug: post.id }, props: { post } }));
+}
+const { post } = Astro.props as { post: CollectionEntry<'research'> };
+const { Content } = await render(post);
+const date = post.data.date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' });
+---
+<BaseLayout title={post.data.title} description={post.data.description} type="article">
+  <section class="page-hero grid-bg">
+    <div class="container">
+      <p class="crumbs"><a href="/research/">Research</a> / {post.data.tags.join(' · ')}</p>
+      <h1 class="h1 article-title">{post.data.title}</h1>
+      <p class="lead">{post.data.description}</p>
+      <p class="mono small muted"><time datetime={post.data.date.toISOString()}>{date}</time> · Parker Daudt</p>
+    </div>
+  </section>
+  <section class="section">
+    <div class="container">
+      <article class="prose">
+        <Content />
+      </article>
+    </div>
+  </section>
+  <CtaBand />
+</BaseLayout>
+
+<style>
+  .article-title { max-width: 20em; }
+</style>

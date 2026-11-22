@@ -1,0 +1,65 @@
+---
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { SITE } from '../../site.config.mjs';
+
+interface Props {
+  title?: string;
+  description?: string;
+  ogImage?: string;
+  type?: 'website' | 'article';
+  noindex?: boolean;
+}
+const { title, description = SITE.description, ogImage = '/og-default.png', type = 'website', noindex = false } = Astro.props;
+const fullTitle = title ? `${title} | ${SITE.name}` : `${SITE.name} | AI and MCP security testing`;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const ogUrl = new URL(ogImage, Astro.site);
+const orgLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: SITE.legalName,
+  alternateName: SITE.name,
+  url: SITE.url,
+  logo: new URL('/apple-touch-icon.png', Astro.site).href,
+  email: SITE.email,
+  description: SITE.description,
+  ...(SITE.linkedin ? { sameAs: [SITE.linkedin] } : {}),
+};
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    {noindex && <meta name="robots" content="noindex" />}
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="preload" href="/fonts/SpaceGrotesk-Variable-latin.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/JetBrainsMono-Variable-latin.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="alternate" type="application/rss+xml" title={`${SITE.name} research`} href="/rss.xml" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <meta name="theme-color" content="#0B0F14" />
+    <meta property="og:type" content={type} />
+    <meta property="og:site_name" content={SITE.name} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogUrl} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="627" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <script type="application/ld+json" set:html={JSON.stringify(orgLd)} />
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <Header />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>

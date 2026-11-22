@@ -1,0 +1,62 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import CheckIcon from '../components/CheckIcon.astro';
+import { SITE } from '../../site.config.mjs';
+const include = [
+  'What you are building: an agent, an LLM feature, an MCP server, or internal agent use',
+  'Where it runs, and whether there is a staging environment we can test',
+  'When it ships, or when you need results',
+  'Anything that worries you, or that a customer has asked about',
+];
+---
+<BaseLayout title="Contact" description="Book a scoping call or email Breakglass Labs about testing your AI agent, LLM application or MCP server.">
+  <section class="page-hero grid-bg">
+    <div class="container">
+      <p class="label">Contact</p>
+      <h1 class="h1">Tell us what you are building</h1>
+      <p class="lead">We reply with a scoped, fixed-fee proposal, usually within three business days.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container cards-wide">
+      <div class="card card-accent">
+        <p class="label">Scoping call</p>
+        {SITE.bookingUrl ? (
+          <>
+            <p class="text">Pick a time that suits you. We will cover what you are building and what a useful test looks like.</p>
+            <a class="btn btn-primary" href={SITE.bookingUrl} rel="noopener">Book a scoping call</a>
+          </>
+        ) : (
+          <>
+            <p class="text">Email us and we will set up a time that suits you.</p>
+            <a class="btn btn-primary" href={`mailto:${SITE.email}?subject=Scoping%20call`}>Email to book a call</a>
+          </>
+        )}
+      </div>
+      <div class="card">
+        <p class="label">Email</p>
+        <p class="text">For proposals, pilots and anything else.</p>
+        <a class="btn btn-secondary mono" href={`mailto:${SITE.email}`}>{SITE.email}</a>
+      </div>
+      <div class="card">
+        <p class="label">Report a vulnerability</p>
+        <p class="text">Found an issue in a Breakglass system? Please follow our disclosure policy.</p>
+        <a class="btn btn-secondary" href="/security/">Security and disclosure</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="container stack narrow">
+      <p class="label">Helpful to include</p>
+      <ul class="checklist">{include.map((i) => <li><CheckIcon /><span>{i}</span></li>)}</ul>
+      <p class="muted small">Please do not send credentials, client data or vulnerability details in a first email. We will set up a secure channel once there is a signed NDA.</p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .text { color: var(--text); font-size: 16px; }
+  .card .btn { margin-top: auto; align-self: flex-start; }
+</style>

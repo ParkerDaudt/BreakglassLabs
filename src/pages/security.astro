@@ -1,0 +1,66 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { SITE } from '../../site.config.mjs';
+---
+<BaseLayout title="Security and disclosure" description="How to report a vulnerability in Breakglass Labs systems, and how Breakglass discloses vulnerabilities it finds in third-party software.">
+  <section class="page-hero grid-bg">
+    <div class="container">
+      <p class="label">Security and disclosure</p>
+      <h1 class="h1">Coordinated vulnerability disclosure</h1>
+      <p class="lead">How to report a vulnerability in our systems, and how we report the vulnerabilities we find in other people's software.</p>
+      <p class="mono small muted">Policy CVD-1.0 · machine-readable contact at <a href="/.well-known/security.txt">/.well-known/security.txt</a></p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="prose">
+        <h2 id="report">Report a vulnerability in Breakglass systems</h2>
+        <p>If you believe you have found a vulnerability in our website, delivery portal or other systems, email <a href={`mailto:${SITE.securityEmail}`}>{SITE.securityEmail}</a> with the details.</p>
+        <ul>
+          <li>Please give us a reasonable chance to fix the issue before you disclose it.</li>
+          <li>Do not access client data, degrade our services or use social engineering.</li>
+          <li>We will acknowledge your report within 3 business days, keep you informed, and credit you if you wish.</li>
+          <li>We will not pursue legal action against good-faith research that follows this section.</li>
+        </ul>
+
+        <h2>Our principles</h2>
+        <ul>
+          <li>Vendors get a fair chance to fix before details become public.</li>
+          <li>Users get the information they need to protect themselves.</li>
+          <li>Client confidentiality always comes first.</li>
+          <li>We never sell vulnerabilities, and never use them beyond what testing requires.</li>
+        </ul>
+
+        <h2>When we find a vulnerability in someone else's software</h2>
+        <table>
+          <thead><tr><th>Found during</th><th>Before we contact the vendor</th></tr></thead>
+          <tbody>
+            <tr><td>A client engagement, in a third-party component the client uses</td><td>We tell the client first and get its written approval to report. The client may report it itself, or ask us to report without naming the client.</td></tr>
+            <tr><td>Our own research, in public software tested in our lab</td><td>No approval needed. We test only copies we run ourselves, never anyone else's live service without permission.</td></tr>
+          </tbody>
+        </table>
+        <p>If a client does not approve disclosure within 30 days and the flaw affects other users, we discuss with the client how to report it without identifying the client. We will not disclose against a client's documented objection where that would breach our agreement with them.</p>
+
+        <h2>Disclosure process</h2>
+        <ol>
+          <li><strong>Report.</strong> We contact the vendor through its published security contact (security.txt, a security advisory channel or a bug bounty program), with enough detail to reproduce the issue and a proposed disclosure date.</li>
+          <li><strong>Acknowledgment.</strong> If the vendor does not respond within 14 days, we try other contacts, and may ask a coordinator such as CERT/CC or GitHub's advisory program for help.</li>
+          <li><strong>Fix window.</strong> The default deadline is 90 days from the first report. We extend it when the vendor is actively working on a fix and needs more time.</li>
+          <li><strong>Actively exploited issues.</strong> If we see evidence of active exploitation, we may shorten the window to 7 days so users can protect themselves.</li>
+          <li><strong>Publication.</strong> We publish once a fix is available or when the deadline passes, whichever comes first, giving the vendor at least 5 business days' notice of the publication date.</li>
+        </ol>
+
+        <h2>What we publish</h2>
+        <ul>
+          <li>Advisories describe the affected product and versions, the impact, the fix, and credit to the vendor for its response. Proof-of-concept detail is limited to what defenders need, and is published only after a fix is available.</li>
+          <li>Nothing we publish identifies a client, its systems or its data unless the client has agreed in writing.</li>
+          <li>We request CVE IDs through the vendor if it is a CVE Numbering Authority, or through another CNA such as GitHub or MITRE.</li>
+        </ul>
+
+        <h2>Review</h2>
+        <p>We review this policy every year and publish the current version on this page, with a matching security.txt file.</p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

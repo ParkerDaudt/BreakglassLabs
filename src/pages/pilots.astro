@@ -1,0 +1,75 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import CtaBand from '../components/CtaBand.astro';
+import CheckIcon from '../components/CheckIcon.astro';
+import { SITE, bookingHref } from '../../site.config.mjs';
+
+const get = [
+  'A full assessment: the same scope, method and deliverables as any paid engagement',
+  'A report built around attack chains, mapped to OWASP and MITRE ATLAS',
+  'A readout with your engineers and one retest',
+  'A regression suite you can run in CI',
+  'An attestation letter for your customers once fixes are verified',
+];
+const ask = [
+  'A reference, if you are happy with the work',
+  'A short case study, reviewed and approved by you before anything is published',
+  'Permission to publish anonymized findings, with nothing that identifies you, your systems or your data unless you agree in writing',
+];
+const faq = [
+  ['Is a pilot a lighter test?', 'No. A pilot uses the same method, the same tester and the same deliverables as a paid engagement. Only the price is different.'],
+  ['What does it cost?', 'The pilot rate is a fixed fee below standard pricing, stated in the proposal before anything is signed.'],
+  ['Will you name us?', 'Only if you agree in writing. Anonymized findings never identify you, your systems or your data.'],
+  ['Who is a good fit?', 'A team shipping an AI agent, an LLM feature or an MCP server in the next few months, with a staging environment we can test.'],
+  ['What happens after the pilot?', 'Nothing automatic. Some teams move to a retainer to keep testing in step with releases; that is a separate decision.'],
+];
+---
+<BaseLayout title="Design-partner pilots" description={`Two or three design-partner pilots for ${SITE.pilotSeason}: a full AI and MCP security assessment at a pilot rate, in exchange for a reference and anonymized findings.`}>
+  <section class="page-hero grid-bg">
+    <div class="container">
+      <p class="label">Design-partner pilots · {SITE.pilotSeason}</p>
+      <h1 class="h1">Two or three pilot slots</h1>
+      <p class="lead">Shipping an agent, an LLM app or an MCP server in the next few months? Get a full assessment at a pilot rate, in exchange for a reference, a case study and permission to publish anonymized findings.</p>
+      <div class="btn-row"><a class="btn btn-primary" href={bookingHref}>Apply for a pilot</a></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container cards-wide">
+      <div class="card">
+        <p class="label">You get</p>
+        <ul class="checklist">{get.map((g) => <li><CheckIcon /><span>{g}</span></li>)}</ul>
+      </div>
+      <div class="card">
+        <p class="label">We ask</p>
+        <ul class="checklist">{ask.map((a) => <li><CheckIcon /><span>{a}</span></li>)}</ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt" aria-labelledby="how-title">
+    <div class="container split top">
+      <div class="main stack">
+        <p class="label">How it works</p>
+        <h2 id="how-title" class="h2">Three steps to a start date</h2>
+        <ol class="timeline">
+          <li><h3>Apply</h3><p>Book a scoping call or email us with what you are building and when it ships.</p></li>
+          <li><h3>Scope</h3><p>We agree targets, dates and the pilot terms, and send a fixed-fee proposal at the pilot rate.</p></li>
+          <li><h3>Test</h3><p>Paperwork signed, testing starts on the agreed date and runs like any other engagement.</p></li>
+        </ol>
+      </div>
+      <div class="side stack">
+        <p class="label">Questions</p>
+        <div class="faq">
+          {faq.map(([q, a]) => <details><summary>{q}</summary><p>{a}</p></details>)}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <CtaBand title="Want one of the pilot slots?" text="Tell us what you are building and when it ships. We reply with a scoped proposal at the pilot rate." primary="Apply for a pilot" />
+</BaseLayout>
+
+<style>
+  .top { align-items: flex-start; }
+</style>
